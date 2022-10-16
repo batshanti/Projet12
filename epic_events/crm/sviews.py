@@ -2,13 +2,18 @@ from django.shortcuts import render
 from rest_framework import filters
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
-from crm.serializers import ClientSerialiser, ContractSerialiser, EventSerialiser
+from crm.serializers import (
+    ClientSerialiser,
+    ContractSerialiser,
+    EventSerialiser,
+)
 from crm.models import Client, Contract, Event
+from crm.permissions import ClientPermission
 
 
 class ClientViewset(ModelViewSet):
     serializer_class = ClientSerialiser
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, ClientPermission]
     filter_backends = [filters.SearchFilter]
     search_fields = ['compagny_name', 'email']
 
@@ -16,20 +21,12 @@ class ClientViewset(ModelViewSet):
         if self.request.user.team == 'sales':
             no_clients = Client.objects.filter(is_client=False)
             clients = Client.objects.filter(sales_contact=self.request.user)
-
             return no_clients | clients
 
         elif self.request.user.team == 'support':
-
-            return Client.objects.filter(event__support_contact=self.request.user)
-            # support_clients_ids = Event.objects.filter(
-            #     support_contact=self.request.user
-            # )
-            # ids_clients = []
-            # for client in support_clients_ids:
-            #     ids_clients.append(client.client.id)
-            # return Client.objects.filter(id__in=ids_clients)
-
+            return Client.objects.filter(
+                event__support_contact=self.request.user
+            )
         return Client.objects.all()
 
     def perform_create(self, serializer):
@@ -47,20 +44,13 @@ class ContractViewset(ModelViewSet):
     filter_backends = [filters.SearchFilter]
     search_fields = ['compagny_name', 'email', 'date_created', 'amount']
 
-
     def get_queryset(self):
         if self.request.user.team == 'sales':
             return Contract.objects.filter(sales_contact=self.request.user)
         elif self.request.user.team == 'support':
-            return Contract.objects.filter(Event__support_contact=self.request.user)
-            # support_clients_ids = Event.objects.filter(
-            #     support_contact=self.request.user
-            # )
-            # ids_clients = []
-            # for client in support_clients_ids:
-            #     ids_clients.append(client.client.id)
-            # return Contract.objects.filter(id__in=ids_clients)
-
+            return Contract.objects.filter(
+                Event__support_contact=self.request.user
+            )
         return Contract.objects.all()
 
     def perform_create(self, serializer):

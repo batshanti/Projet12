@@ -8,12 +8,12 @@ from crm.serializers import (
     EventSerialiser,
 )
 from crm.models import Client, Contract, Event
-from crm.permissions import ClientPermission
+from crm.permissions import ContractPermission
 
 
 class ContractViewset(ModelViewSet):
     serializer_class = ContractSerialiser
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, ContractPermission]
     filter_backends = [filters.SearchFilter]
     search_fields = ['compagny_name', 'email', 'date_created', 'amount']
 
@@ -22,7 +22,7 @@ class ContractViewset(ModelViewSet):
             return Contract.objects.filter(sales_contact=self.request.user)
         elif self.request.user.team == 'support':
             return Contract.objects.filter(
-                Event__support_contact=self.request.user
+                event__support_contact=self.request.user
             )
         return Contract.objects.all()
 

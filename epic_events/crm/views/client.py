@@ -32,6 +32,8 @@ class ClientViewset(ModelViewSet):
     def perform_create(self, serializer):
         if self.request.data['is_client'] == 'true':
             serializer.save(sales_contact=self.request.user)
+        else:
+            serializer.save()
 
     def perform_update(self, serializer):
         if self.request.data['is_client'] == 'true':

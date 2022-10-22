@@ -10,6 +10,7 @@ class ClientAdmin(admin.ModelAdmin):
         'last_name',
         'compagny_name',
         'email',
+        'sales_contact',
         'is_client'
     )
     search_fields = ('email',)
@@ -29,11 +30,13 @@ class ContractAdmin(admin.ModelAdmin):
 class EventAdmin(admin.ModelAdmin):
 
     list_display = (
+        'id',
         'client',
         'support_contact',
         'attendees',
         'event_date',
-        'note'
+        'note',
+        'client'
     )
 
 

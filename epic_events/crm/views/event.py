@@ -8,22 +8,20 @@ from crm.serializers import (
     EventSerialiser,
 )
 from crm.models import Client, Contract, Event
-from crm.permissions import ClientPermission
+from crm.permissions import ClientPermission, EventPermission
 
 
 class EventViewset(ModelViewSet):
     serializer_class = EventSerialiser
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, EventPermission]
     filter_backends = [filters.SearchFilter]
     search_fields = ['compagny_name', 'email', 'event_date']
 
     def get_queryset(self):
         if self.request.user.team == 'sales':
-            clients = Event.objects.filter(sales_contact=self.request.user)
-            ids_clients = []
-            for client in clients:
-                ids_clients.append(client.id)
-            return Event.objects.filter(id__in=client.id)
+            return Event.objects.filter(
+                contract__sales_contact=self.request.user
+            )
         elif self.request.user.team == 'support':
             return Event.objects.filter(support_contact=self.request.user)
 

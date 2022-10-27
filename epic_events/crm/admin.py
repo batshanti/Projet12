@@ -31,12 +31,11 @@ class EventAdmin(admin.ModelAdmin):
 
     list_display = (
         'id',
-        'client',
         'support_contact',
         'attendees',
         'event_date',
-        'note',
-        'client'
+        'status',
+        'note'
     )
 
 

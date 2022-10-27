@@ -1,14 +1,9 @@
-from django.shortcuts import render
 from rest_framework import filters
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
-from crm.serializers import (
-    ClientSerialiser,
-    ContractSerialiser,
-    EventSerialiser,
-)
-from crm.models import Client, Contract, Event
-from crm.permissions import ClientPermission, EventPermission
+from crm.serializers import EventSerialiser
+from crm.models import Event
+from crm.permissions import EventPermission
 
 
 class EventViewset(ModelViewSet):
@@ -26,7 +21,3 @@ class EventViewset(ModelViewSet):
             return Event.objects.filter(support_contact=self.request.user)
 
         return Event.objects.all()
-
-    def perform_create(self, serializer):
-        contract = Contract.objects.get(pk=self.request.data['contract'])
-        serializer.save(client=contract.client)

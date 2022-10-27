@@ -1,6 +1,11 @@
 from django.db import models
 from django.conf import settings
-from crm.models import Contract, Client
+from crm.models import Contract
+
+STATUS = [
+    ('in_progress', 'in_progress'),
+    ('finished', 'finished')
+]
 
 
 class Event(models.Model):
@@ -10,13 +15,6 @@ class Event(models.Model):
         on_delete=models.CASCADE,
         related_name='contract',
         limit_choices_to={'status': 'True'}
-    )
-    client = models.ForeignKey(
-        Client,
-        limit_choices_to={'is_client': True},
-        on_delete=models.CASCADE,
-        related_name='event',
-        blank=True
     )
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
@@ -29,7 +27,13 @@ class Event(models.Model):
     )
     attendees = models.IntegerField()
     event_date = models.DateTimeField()
+    status = models.CharField(
+        max_length=12,
+        choices=STATUS,
+        blank=False,
+        default='in_progress'
+    )
     note = models.TextField()
 
     def __str__(self):
-        return f'{self.event_date} - {self.client}'
+        return f'{self.event_date} - {self.contract}'

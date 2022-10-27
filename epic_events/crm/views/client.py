@@ -25,7 +25,7 @@ class ClientViewset(ModelViewSet):
 
         elif self.request.user.team == 'support':
             return Client.objects.filter(
-                event__support_contact=self.request.user
+                contractclient__contract__support_contact=self.request.user
             )
         return Client.objects.all()
 

@@ -1,5 +1,5 @@
 from rest_framework.permissions import BasePermission, SAFE_METHODS
-from crm.models import Client
+from crm.models import Client, Contract
 
 
 class ClientPermission(BasePermission):
@@ -38,7 +38,7 @@ class ContractPermission(BasePermission):
 
         if request.method in SAFE_METHODS:
             return request.user
-        elif request.method in ['PUT', 'PATCH', 'DELETE']:
+        elif request.method in ['PATCH', 'DELETE']:
             if request.user == obj.sales_contact:
                 return True
             else:
@@ -50,13 +50,23 @@ class EventPermission(BasePermission):
     def has_permission(self, request, view):
 
         if view.action == 'create':
-            if request.user.team == 'sales':
+            contract = Contract.objects.get(pk=request.data['contract'])
+            client = Client.objects.get(pk=contract.client.id)
+            if request.user == client.sales_contact:
                 return True
         else:
             return True
 
     def has_object_permission(self, request, view, obj):
-        pass
+
+        if request.method in SAFE_METHODS:
+            return request.user
+        elif request.method == 'PATCH':
+            if request.user == obj.support_contact:
+                return True
+            else:
+                return False
+
 
 
 

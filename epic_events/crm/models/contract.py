@@ -16,6 +16,7 @@ class Contract(models.Model):
         Client,
         on_delete=models.CASCADE,
         limit_choices_to={'is_client': True},
+        related_name='contractclient'
     )
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)

@@ -24,7 +24,8 @@ class ContractViewset(ModelViewSet):
             return Contract.objects.filter(
                 event__support_contact=self.request.user
             )
-        return Contract.objects.all()
+        else:
+            return Contract.objects.all()
 
     def perform_create(self, serializer):
         serializer.save(sales_contact=self.request.user)

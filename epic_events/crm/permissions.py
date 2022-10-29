@@ -16,7 +16,7 @@ class ClientPermission(BasePermission):
 
         if request.method in SAFE_METHODS:
             return request.user
-        elif request.method in ['PUT', 'PATCH', 'DELETE']:
+        elif request.method in ['PATCH', 'DELETE']:
             if not obj.is_client:
                 return request.user.team == 'sales'
             else:
@@ -66,28 +66,3 @@ class EventPermission(BasePermission):
                 return True
             else:
                 return False
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        # print(obj.support_contact.id)
-        # print(request.data['support_contact'])
-        # print(view.data['support_contact'])
-        # if request.method in ['PUT', 'PATCH']:
-        #     if obj.support_contact.id == request.data['support_contact']:
-        #         return True
-        #     else:
-        #         return False
-

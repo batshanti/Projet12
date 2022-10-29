@@ -20,4 +20,5 @@ class EventViewset(ModelViewSet):
         elif self.request.user.team == 'support':
             return Event.objects.filter(support_contact=self.request.user)
 
-        return Event.objects.all()
+        else:
+            return Event.objects.all()

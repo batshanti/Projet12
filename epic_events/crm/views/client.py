@@ -27,7 +27,8 @@ class ClientViewset(ModelViewSet):
             return Client.objects.filter(
                 contractclient__contract__support_contact=self.request.user
             )
-        return Client.objects.all()
+        else:
+            return Client.objects.all()
 
     def perform_create(self, serializer):
         if self.request.data['is_client'] == 'true':

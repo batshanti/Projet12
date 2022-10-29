@@ -42,8 +42,3 @@ class EventAdmin(admin.ModelAdmin):
 admin.site.register(Client, ClientAdmin)
 admin.site.register(Event, EventAdmin)
 admin.site.register(Contract, ContractAdmin)
-
-
-
-# class UserAdmin(admin.ModelAdmin):
-# admin.site.register(User, UserAdmin)

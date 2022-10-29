@@ -24,7 +24,6 @@ Linux >  [https://www.linuxtricks.fr/wiki/debian-10-installer-et-utiliser-postgr
 ```
 git clone https://github.com/batshanti/Projet12.git
 cd Projet12/
-
 ```
 
 #### Créer un environnement virtuel pour le projet :
@@ -34,7 +33,6 @@ cd Projet12/
 ```
  python3 -m venv venv
  source venv/bin/activate
-
 ```
 
 (Windows)
@@ -42,21 +40,18 @@ cd Projet12/
 ```
  python -m venv env
  env\Scripts\activate
-
 ```
 
 #### Installer les packages :
 
 ```
 pip install -r requirements.txt
-
 ```
 
 #### Création d’un super utilisateur :
 
 ```
 python manage.py createsuperuser
-
 ```
 
 #### Ajouter les informations de connexion à la base de donnée PostgreSQL dans le fichier  **[settings.py](http://settings.py)**  de l’application :
@@ -73,14 +68,14 @@ DATABASES = {
         'PORT': '',
     }
 }
-
 ```
 
 #### Démarrer le serveur :
-
 ```
 python manage.py runserver
-
 ```
+###  Page d'administration :
+http://127.0.0.1:8000/admin/
 
-## Lancement de l’application web
+### Documentation : 
+https://documenter.getpostman.com/view/22498429/2s8YKDmiUq

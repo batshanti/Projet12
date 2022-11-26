@@ -48,12 +48,6 @@ cd Projet12/
 pip install -r requirements.txt
 ```
 
-#### Création d’un super utilisateur :
-
-```
-python manage.py createsuperuser
-```
-
 #### Ajouter les informations de connexion à la base de donnée PostgreSQL dans le fichier  **[settings.py](http://settings.py)**  de l’application :
 
 ```
@@ -69,11 +63,31 @@ DATABASES = {
     }
 }
 ```
+#### Appliquer les migrations :
+
+```
+python manage.py makemigrations
+python manage.py migrate
+```
+#### Charger les données de test dans la base :
+
+```
+python manage.py loaddata db.json
+```
 
 #### Démarrer le serveur :
 ```
 python manage.py runserver
 ```
+#### Comptes de test :
+
+| Login  | Password  | Team |
+|--|--|--|
+| admin | Password0! | manager |
+| james.taylor | Password1! | sales |
+| james.taylor | Password2! | sales |
+| andy.smith | Password3! | support |
+                                                                                                                                                                                                                                                                 
 ###  Page d'administration :
 http://127.0.0.1:8000/admin/
 

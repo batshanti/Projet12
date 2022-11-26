@@ -45,23 +45,6 @@ class UserCreationForm(forms.ModelForm):
 class UserAdmin(admin.ModelAdmin):
     form = UserCreationForm
     list_display = ('id', 'username', 'email', 'first_name', 'last_name', 'team')
-
-    # fieldsets = (
-    #     (
-    #         'User information',
-    #         {'fields': (
-    #             'username',
-    #             'first_name',
-    #             'last_name',
-    #             'email',
-    #             'password',
-    #             'team',
-    #             'is_active',
-    #             'is_staff',
-    #             'is_superuser'
-    #         )}
-    #     ),
-    # )
     search_fields = ('email',)
 
 

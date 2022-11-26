@@ -84,7 +84,7 @@ python manage.py runserver
 | Login  | Password  | Team |
 |--|--|--|
 | admin | Password0! | manager |
-| james.taylor | Password1! | sales |
+| teddy.louvet | Password1! | sales |
 | james.taylor | Password2! | sales |
 | andy.smith | Password3! | support |
                                                                                                                                                                                                                                                                  

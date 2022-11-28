@@ -170,11 +170,10 @@ SIMPLE_JWT = {
 
 
 sentry_sdk.init(
-    dsn="https://60aaf43a8b504a35b5336344d28bcdb2@o4504057205424128.ingest.sentry.io/4504057207980032",
+    dsn="https://a2261b8b2b01413c8d5a4e20bbca1fdf@o4504236871057408.ingest.sentry.io/4504236873547776",
     integrations=[
         DjangoIntegration(),
     ],
-
     # Set traces_sample_rate to 1.0 to capture 100%
     # of transactions for performance monitoring.
     # We recommend adjusting this value in production.

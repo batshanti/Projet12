@@ -1,3 +1,4 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from django.shortcuts import render
 from rest_framework import filters
 from rest_framework.viewsets import ModelViewSet
@@ -14,8 +15,9 @@ from crm.permissions import ContractPermission
 class ContractViewset(ModelViewSet):
     serializer_class = ContractSerialiser
     permission_classes = [IsAuthenticated, ContractPermission]
-    filter_backends = [filters.SearchFilter]
+    filter_backends = [filters.SearchFilter, DjangoFilterBackend]
     search_fields = ['compagny_name', 'email', 'date_created', 'amount']
+    filterset_fields = ['status']
 
     def get_queryset(self):
         if self.request.user.team == 'sales':

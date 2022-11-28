@@ -1,3 +1,4 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from django.shortcuts import render
 from rest_framework import filters
 from rest_framework.viewsets import ModelViewSet
@@ -14,8 +15,9 @@ from crm.permissions import ClientPermission
 class ClientViewset(ModelViewSet):
     serializer_class = ClientSerialiser
     permission_classes = [IsAuthenticated, ClientPermission]
-    filter_backends = [filters.SearchFilter]
+    filter_backends = [filters.SearchFilter, DjangoFilterBackend]
     search_fields = ['compagny_name', 'email']
+    filterset_fields = ["is_client"]
 
     def get_queryset(self):
         if self.request.user.team == 'sales':

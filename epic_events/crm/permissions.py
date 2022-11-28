@@ -62,7 +62,7 @@ class EventPermission(BasePermission):
         if request.method in SAFE_METHODS:
             return request.user
         elif request.method == 'PATCH':
-            if request.user == obj.support_contact:
+            if request.user == obj.support_contact and obj.status !='finished':
                 return True
             else:
                 return False
